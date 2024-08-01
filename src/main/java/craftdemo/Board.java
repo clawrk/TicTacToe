@@ -1,12 +1,14 @@
 package craftdemo;
 
 import com.google.common.annotations.VisibleForTesting;
+import craftdemo.boardstatus.BoardStatusManager;
 
 import java.util.ArrayList;
 
 public class Board {
     private final char[][] board; //e = empty, x = cross, o = circle.
     private final int size;
+
     public Board(int size) {
         this.size = size;
         board = new char[size][size];
@@ -33,16 +35,11 @@ public class Board {
         return retArr;
     }
 
-    public GameState getGameState() {
-        if (hasWon('x'))
-            return GameState.CrossWin;
-        else if (hasWon('o'))
-            return GameState.CircleWin;
-        else if (getFreePositions().size() == 0)
-            return GameState.Draw;
-        else return GameState.Incomplete;
-    }
 
+    public GameState getGameState() {
+        return BoardStatusManager.getGameState(getFreePositions(), board, size);
+    }
+    /**
     @VisibleForTesting
     public boolean hasWon(char sign) {
         int x, y;
@@ -54,7 +51,7 @@ public class Board {
             if (board[d][d] != sign) {
                 diagonal1 = false;
             }
-            if(board[d][size-1-d] != sign) {
+            if (board[d][size - 1 - d] != sign) {
                 diagonal2 = false;
             }
         }
@@ -80,6 +77,7 @@ public class Board {
         }
         return false;
     }
+    */
 
     public boolean isMarked(GamePosition gamePosition) {
         if (board[gamePosition.getColumn()][gamePosition.getRow()] != 'e')
@@ -94,7 +92,7 @@ public class Board {
                 if (board[x][y] == 'x' || board[x][y] == 'o')
                     retString += "[" + board[x][y] + "]";
                 else
-                    retString += "[" + Utils.fromCoordinates(x,y,size) + "]";
+                    retString += "[" + Utils.fromCoordinates(x, y, size) + "]";
             }
             retString += "\n";
         }

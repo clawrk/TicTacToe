@@ -12,9 +12,6 @@ import static craftdemo.Utils.playerWinsToss;
 
 public class GameManager {
     private static boolean hasGameEnded = false;
-    private static boolean isPlayer = true;
-    @VisibleForTesting
-    public static final Scanner inputScanner = new Scanner(System.in);
     private static Board board = new Board(3);
 
     public static void main(String[] args) throws InterruptedException, IOException {
@@ -24,7 +21,7 @@ public class GameManager {
         System.out.println(board);
         System.out.println("Flipping a coin to decide who will make first move...");
         Thread.sleep(1000);
-        isPlayer = playerWinsToss(playerName);
+        boolean isPlayer = playerWinsToss(playerName);
 
         while (!hasGameEnded) {
             GamePosition gamePosition = null;

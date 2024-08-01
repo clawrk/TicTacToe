@@ -94,7 +94,7 @@ public class Board {
                 if (board[x][y] == 'x' || board[x][y] == 'o')
                     retString += "[" + board[x][y] + "]";
                 else
-                    retString += "[ ]";
+                    retString += "[" + Utils.fromCoordinates(x,y,size) + "]";
             }
             retString += "\n";
         }

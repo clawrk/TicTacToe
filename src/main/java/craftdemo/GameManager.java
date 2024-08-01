@@ -1,6 +1,8 @@
 package craftdemo;
 
 import com.google.common.annotations.VisibleForTesting;
+import craftdemo.gamestatus.GameStatusManager;
+import craftdemo.input.InputService;
 import craftdemo.strategy.MiniMaxGameStrategy;
 
 import java.io.IOException;
@@ -36,26 +38,7 @@ public class GameManager {
             }
             isPlayer = !isPlayer;
             System.out.println(board);
-            evaluateGame();
-        }
-    }
-
-    private static void evaluateGame() {
-        GameState gameState = board.getGameState();
-        hasGameEnded = true;
-        switch (gameState) {
-            case CrossWin:
-                System.out.println("You Won!");
-                break;
-            case CircleWin:
-                System.out.println("Computer Won!");
-                break;
-            case Draw:
-                System.out.println("Draw!");
-                break;
-            default:
-                hasGameEnded = false;
-                break;
+            hasGameEnded = GameStatusManager.evaluateGame(playerName, board);
         }
     }
 
@@ -63,26 +46,12 @@ public class GameManager {
         GamePosition gamePosition = null;
         while (true) {
             System.out.printf("Pick any number between 1 and %s:", board.getSize()* board.getSize());
-            int userInput = getUserInput();
+            int userInput = InputService.getUserInput(board.getSize());
             gamePosition = Utils.fromNumber(userInput, board.getSize());
             if (board.isMarked(gamePosition))
                 System.out.println("Already marked!");
             else break;
         }
         return gamePosition;
-    }
-
-    public static int getUserInput() {
-        int ret = -1;
-        while (true) {
-            try {
-                ret = Integer.parseInt(inputScanner.nextLine());
-            } catch (NumberFormatException e) {
-            }
-            if (ret < 1 | ret > board.getSize()*board.getSize())
-                System.out.printf("\nInvalid input. Please pick between 1 - %s " , board.getSize()*board.getSize());
-            else break;
-        }
-        return ret;
     }
 }

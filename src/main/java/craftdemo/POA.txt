@@ -1,4 +1,0 @@
-1) Refactor plagiarism
-2) Functionally should match problem statement
-3) Design Patterns
-4) Unit Tests

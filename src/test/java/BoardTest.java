@@ -1,6 +1,7 @@
 import craftdemo.Board;
 import craftdemo.GamePosition;
 import craftdemo.PlayerSign;
+import craftdemo.boardstatus.BoardStatusManager;
 import org.checkerframework.checker.units.qual.A;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -37,7 +38,7 @@ public class BoardTest {
         nextState = new Board(nextState, gamePosition1, PlayerSign.Cross);
         nextState = new Board(nextState, gamePosition2, PlayerSign.Cross);
 
-        Assertions.assertTrue(nextState.hasWon('x'));
+        Assertions.assertTrue(BoardStatusManager.hasWon('x', nextState.getBoard(), nextState.getSize()));
     }
 
     @Test
@@ -52,7 +53,7 @@ public class BoardTest {
         nextState = new Board(nextState, gamePosition1, PlayerSign.Cross);
         nextState = new Board(nextState, gamePosition2, PlayerSign.Cross);
 
-        Assertions.assertTrue(nextState.hasWon('x'));
+        Assertions.assertTrue(BoardStatusManager.hasWon('x', nextState.getBoard(), nextState.getSize()));
     }
 
     @Test
@@ -67,7 +68,7 @@ public class BoardTest {
         nextState = new Board(nextState, gamePosition1, PlayerSign.Cross);
         nextState = new Board(nextState, gamePosition2, PlayerSign.Cross);
 
-        Assertions.assertTrue(nextState.hasWon('x'));
+        Assertions.assertTrue(BoardStatusManager.hasWon('x', nextState.getBoard(), nextState.getSize()));
     }
 
     @Test
@@ -82,7 +83,7 @@ public class BoardTest {
         nextState = new Board(nextState, gamePosition1, PlayerSign.Cross);
         nextState = new Board(nextState, gamePosition2, PlayerSign.Cross);
 
-        Assertions.assertTrue(nextState.hasWon('x'));
+        Assertions.assertTrue(BoardStatusManager.hasWon('x', nextState.getBoard(), nextState.getSize()));
     }
 
     @Test
@@ -95,6 +96,6 @@ public class BoardTest {
         Board nextState = new Board(initialState, gamePosition, PlayerSign.Cross);
         nextState = new Board(nextState, gamePosition1, PlayerSign.Cross);
 
-        Assertions.assertFalse(nextState.hasWon('x'));
+        Assertions.assertFalse(BoardStatusManager.hasWon('x', nextState.getBoard(), nextState.getSize()));
     }
 }

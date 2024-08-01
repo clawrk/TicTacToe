@@ -108,4 +108,9 @@ public class Board {
         assert X < size && Y < size;
         return board[X][Y];
     }
+
+    @VisibleForTesting
+    public char[][] getBoard() {
+        return this.board;
+    }
 }
